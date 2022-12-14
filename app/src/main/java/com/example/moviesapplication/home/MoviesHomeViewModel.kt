@@ -27,7 +27,7 @@ class MoviesHomeViewModel(
         inputMovies = movie
     }
 
-    fun onSearchButtonClicked(){
+    fun onSearch(){
         _loading = true
         viewModelScope.launch {
             try{
