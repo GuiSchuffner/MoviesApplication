@@ -20,8 +20,7 @@ class MoviesHomeViewModel(
     private var _loading by mutableStateOf(false)
     val loading = _loading
 
-    private val _moviesList = MutableLiveData<List<Movies>>()
-    val moviesList: LiveData<List<Movies>> = _moviesList
+    var moviesList by mutableStateOf<List<Movies>>(listOf())
 
     fun onInputMoviesChanged(movie: String) {
         inputMovies = movie
@@ -32,7 +31,7 @@ class MoviesHomeViewModel(
         viewModelScope.launch {
             try{
                 val response = moviesHomeRepository.searchTitle(inputMovies)
-                _moviesList.postValue(response.body()!!.results)
+                moviesList = response.body()!!.results
             } catch (e : Exception) {
 
             }

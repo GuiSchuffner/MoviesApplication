@@ -24,6 +24,13 @@ interface MoviesApi {
         private const val BASE_URL="https://online-movie-database.p.rapidapi.com/"
         private const val API_KEY = "b30e63bc29msh8e8ee2e35e96f94p1be304jsnd7f67794f8e0"
         private const val API_HOST = "online-movie-database.p.rapidapi.com"
+        val MOVIES_GENRE_LIST = listOf(
+            "action","adventure","animation","biography","comedy","crime","documentary","drama",
+            "family","fantasy","film-noir","game-show","history","horror","music","musical",
+            "mystery","news","reality-tv","romance","sci-fi","short","sport","talk-show",
+            "thriller","war","western"
+        )
+
         fun create(): MoviesApi {
             val client = OkHttpClient().newBuilder()
                 .build()
