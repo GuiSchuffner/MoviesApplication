@@ -6,10 +6,10 @@ import androidx.compose.runtime.Composable
 
 
 private val colorScheme = lightColorScheme(
-surface = Blue,
-onSurface = androidx.compose.ui.graphics.Color.Black,
-primary = Navy,
-onPrimary = LightBlue
+surface = androidx.compose.ui.graphics.Color.Black,
+onSurface = androidx.compose.ui.graphics.Color.White,
+primary = androidx.compose.ui.graphics.Color.White,
+onPrimary = androidx.compose.ui.graphics.Color.White
 )
 
 @Composable
