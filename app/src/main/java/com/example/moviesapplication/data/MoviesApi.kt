@@ -1,5 +1,7 @@
 package com.example.moviesapplication.data
 
+import com.example.moviesapplication.model.MovieOverview
+import com.example.moviesapplication.model.Movies
 import com.example.moviesapplication.model.MoviesApiResponse
 import okhttp3.OkHttpClient
 import retrofit2.Response
@@ -19,6 +21,30 @@ interface MoviesApi {
     suspend fun findTitle(
         @Query("q") q: String
     ): Response<MoviesApiResponse>
+
+    @Headers(
+        "X-RapidAPI-Key: $API_KEY",
+        "X-RapidAPI-Host: $API_HOST"
+    )
+    @GET("title/get-details")
+    suspend fun getDetails(
+        @Query("tconst") id: String
+    ): Movies
+
+    @Headers(
+        "X-RapidAPI-Key: $API_KEY",
+        "X-RapidAPI-Host: $API_HOST"
+    )
+    @GET("title/get-most-popular-movies")
+    suspend fun getMostPopularMovies() : List<String>
+
+    @Headers(
+        "X-RapidAPI-Key: $API_KEY",
+        "X-RapidAPI-Host: $API_HOST"
+    )
+    @GET("title/get-most-popular-movies")
+    suspend fun getOverviewDetails() : MovieOverview
+
 
     companion object{
         private const val BASE_URL="https://online-movie-database.p.rapidapi.com/"
