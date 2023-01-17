@@ -88,6 +88,13 @@ class MoviesHomeViewModel(
             setMostPopularMoviesPage(page)
     }
 
+    fun getMovieId(movie: Movies): String {
+        val regex = "(tt\\w+)".toRegex()
+        val filteredMovieId = regex.find(movie.id)
+        val string = filteredMovieId?.groups?.get(0)?.value ?: ""
+        return string
+    }
+
     private fun setSearchMoviesPage(page: Int) {
         if(page in 1..numberOfPages) {
             val startIndex = (page-1)*pageSize

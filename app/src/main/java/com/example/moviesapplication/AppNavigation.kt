@@ -61,7 +61,7 @@ fun NavigationGraph(navController: NavHostController) {
         composable(route = BottomNavItem.Home.route) {
             MoviesHomeContent(
                 navigateToMovieDetails = {
-                    navController.navigate(AppRoutes.MovieDetails.name+"/$it")
+                    navController.navigate(AppRoutes.MovieDetails.name + "/$it")
                 }
             )
         }
@@ -69,10 +69,13 @@ fun NavigationGraph(navController: NavHostController) {
             MoviesGenresContent()
         }
         composable(
-            route = AppRoutes.MovieDetails.name+"/{movieId}",
-            arguments = listOf(navArgument("movieId") { type = NavType.StringType })
+            route = AppRoutes.MovieDetails.name + "/{movieId}",
+            arguments = listOf(navArgument("movieId") {
+                type = NavType.StringType
+                nullable = false
+            })
         ) {
-            MovieDetailsContent()
+            MovieDetailsContent(it.arguments?.getString("movieId")!!)
         }
     }
 }

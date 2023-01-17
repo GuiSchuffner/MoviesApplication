@@ -46,7 +46,8 @@ fun MoviesHomeContent(
         )
         MoviesList(
             moviesList = moviesViewModel.moviesPage,
-            onItemClicked = { navigateToMovieDetails(it) }
+            onItemClicked = { navigateToMovieDetails(it) },
+            getMovieId = { moviesViewModel.getMovieId(it) }
         )
     }
 }
@@ -131,7 +132,11 @@ fun PreviewPageSelector(){
 }
 
 @Composable
-fun MoviesList(moviesList: List<Movies>?, onItemClicked: (String) -> Unit) {
+fun MoviesList(
+    moviesList: List<Movies>?,
+    onItemClicked: (String) -> Unit,
+    getMovieId: (Movies) -> String
+) {
     LazyVerticalGrid (
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
         columns = GridCells.Adaptive(minSize = 128.dp)
@@ -140,7 +145,7 @@ fun MoviesList(moviesList: List<Movies>?, onItemClicked: (String) -> Unit) {
             items(moviesList) { movie ->
                 MovieCard(
                     movie = movie,
-                    onClick = { onItemClicked(it) }
+                    onClick = { onItemClicked(getMovieId(movie)) }
                 )
             }
         }

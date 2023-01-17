@@ -45,7 +45,7 @@ fun AppContent(){
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(isBottomBarDestination: Boolean, onNavIconClicked: ()->Unit){
-    TopAppBar(
+    CenterAlignedTopAppBar(
         title = { TopBarText() },
         navigationIcon = {
                          if(!isBottomBarDestination) {
