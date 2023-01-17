@@ -8,9 +8,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.navArgument
 import com.example.moviesapplication.home.MoviesGenresContent
 import com.example.moviesapplication.home.MoviesHomeContent
 import com.example.moviesapplication.moviedetails.MovieDetailsContent
@@ -57,12 +59,19 @@ fun BottomNav(navController: NavHostController) {
 fun NavigationGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination  = BottomNavItem.Home.route) {
         composable(route = BottomNavItem.Home.route) {
-            MoviesHomeContent()
+            MoviesHomeContent(
+                navigateToMovieDetails = {
+                    navController.navigate(AppRoutes.MovieDetails.name+"/$it")
+                }
+            )
         }
         composable(route = BottomNavItem.MoviesGenre.route) {
             MoviesGenresContent()
         }
-        composable(route = AppRoutes.MovieDetails.name) {
+        composable(
+            route = AppRoutes.MovieDetails.name+"/{movieId}",
+            arguments = listOf(navArgument("movieId") { type = NavType.StringType })
+        ) {
             MovieDetailsContent()
         }
     }

@@ -28,7 +28,10 @@ import com.example.moviesapplication.ui.theme.Navy
 import com.example.moviesapplication.ui.theme.Yellow
 
 @Composable
-fun MoviesHomeContent(moviesViewModel: MoviesHomeViewModel = koinViewModel()){
+fun MoviesHomeContent(
+    navigateToMovieDetails: (String)->Unit,
+    moviesViewModel: MoviesHomeViewModel = koinViewModel()
+){
     Column {
         MoviesSearch(
             moviesFieldValue = moviesViewModel.inputMovies,
@@ -41,7 +44,10 @@ fun MoviesHomeContent(moviesViewModel: MoviesHomeViewModel = koinViewModel()){
             onPageSelected = { moviesViewModel.onPageSelected(it) },
             currentPage = moviesViewModel.currentPage
         )
-        MoviesList(moviesViewModel.moviesPage)
+        MoviesList(
+            moviesList = moviesViewModel.moviesPage,
+            onItemClicked = { navigateToMovieDetails(it) }
+        )
     }
 }
 
@@ -110,7 +116,7 @@ fun PageSelector(
             TextButton(onClick = { onPageSelected(page) }) {
                 Text(
                     text = page.toString(),
-                    color = if (page == currentPage) Yellow else Yellow.copy(0.4f),
+                    color = if (page == currentPage) Yellow else Yellow.copy(0.5f),
                     style = MaterialTheme.typography.bodySmall
                 )
             }
@@ -125,26 +131,29 @@ fun PreviewPageSelector(){
 }
 
 @Composable
-fun MoviesList(moviesList: List<Movies>?) {
+fun MoviesList(moviesList: List<Movies>?, onItemClicked: (String) -> Unit) {
     LazyVerticalGrid (
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
         columns = GridCells.Adaptive(minSize = 128.dp)
     ) {
-        if(moviesList!=null){
+        if(moviesList!=null) {
             items(moviesList) { movie ->
-                MovieCard(movie)
+                MovieCard(
+                    movie = movie,
+                    onClick = { onItemClicked(it) }
+                )
             }
         }
     }
 }
 
 @Composable
-fun MovieCard(movie: Movies){
+fun MovieCard(movie: Movies, onClick: (String)-> Unit){
     Card(
         modifier = Modifier
             .size(width = 160.dp, height = 320.dp)
             .padding(vertical = 12.dp, horizontal = 12.dp)
-            .clickable { },
+            .clickable(enabled = true, onClick = { onClick(movie.id) } ),
         elevation = CardDefaults.cardElevation(defaultElevation = 16.dp),
         colors = CardDefaults.cardColors(
             containerColor = Navy,
@@ -186,7 +195,7 @@ fun MovieCardPreview(){
         seriesStartYear = 2019, titleType = "Series", year = 2011, principals = listOf(),
         image = null
     )
-    MovieCard(movie = movie)
+    MovieCard(movie = movie, onClick = {})
 }
 
 @Composable

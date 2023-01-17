@@ -1,5 +1,6 @@
 package com.example.moviesapplication.home
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -83,7 +84,6 @@ class MoviesHomeViewModel(
     fun onPageSelected(page: Int) {
         if(showSearchList)
             setSearchMoviesPage(page)
-
         else
             setMostPopularMoviesPage(page)
     }
@@ -92,7 +92,7 @@ class MoviesHomeViewModel(
         if(page in 1..numberOfPages) {
             val startIndex = (page-1)*pageSize
             val endIndex = page*pageSize - 1
-            moviesPage = moviesList.subList(startIndex, endIndex+1)
+            moviesPage = ArrayList(moviesList.subList(startIndex, endIndex+1))
             currentPage = page
         }
     }
@@ -115,10 +115,11 @@ class MoviesHomeViewModel(
             try{
                 topMoviesIds = moviesHomeRepository.getMostPopularMovies()
                 getMostPopularMoviesPage(1)
-                loading = false
+                setListOfNumberOfPages()
             } catch (e: Exception) {
-                //to do
+                // to do
             }
+            loading = false
         }
     }
 
@@ -126,26 +127,27 @@ class MoviesHomeViewModel(
         if(page in 1..pageSize) {
             var startIndex = (page-1)*pageSize
             val endIndex = page*pageSize-1
-            if(startIndex>currentMaxIndex) {
-                startIndex = currentMaxIndex+1
-            }
-
-            val regex = "(tt\\w+)".toRegex()
-
-            for(i: Int in startIndex..endIndex) {
-                try{
-                    val match = regex.find(topMoviesIds[i])
-                    if(match !=null) {
-                        getMoviesDetails(match.value)
-                    }
-                } catch (e: Exception) {
-
+            if(endIndex>currentMaxIndex) {
+                if(startIndex>currentMaxIndex) {
+                    startIndex = currentMaxIndex+1
                 }
 
+                val regex = "(tt\\w+)".toRegex()
+
+                for(i: Int in startIndex..endIndex) {
+                    try{
+                        val match = regex.find(topMoviesIds[i])
+                        if(match !=null) {
+                            getMoviesDetails(match.value)
+                        }
+                    } catch (e: Exception) {
+
+                    }
+                }
+                currentMaxIndex=endIndex
+                startIndex = (page-1)*pageSize
             }
-            currentMaxIndex=endIndex
-            startIndex = (page-1)*pageSize
-            moviesPage = topMoviesList.subList(startIndex, endIndex+1)
+            moviesPage = ArrayList(topMoviesList.subList(startIndex, endIndex+1))
             currentPage = page
         }
     }
