@@ -118,7 +118,7 @@ fun PageSelector(
                 Text(
                     text = page.toString(),
                     color = if (page == currentPage) Yellow else Yellow.copy(0.5f),
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }

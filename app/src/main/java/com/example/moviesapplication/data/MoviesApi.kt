@@ -42,8 +42,10 @@ interface MoviesApi {
         "X-RapidAPI-Key: $API_KEY",
         "X-RapidAPI-Host: $API_HOST"
     )
-    @GET("title/get-most-popular-movies")
-    suspend fun getOverviewDetails() : MovieOverview
+    @GET("title/get-overview-details")
+    suspend fun getOverviewDetails(
+        @Query("tconst") id: String
+    ) : MovieOverview
 
 
     companion object{

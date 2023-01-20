@@ -16,8 +16,11 @@ import androidx.navigation.navArgument
 import com.example.moviesapplication.home.MoviesGenresContent
 import com.example.moviesapplication.home.MoviesHomeContent
 import com.example.moviesapplication.moviedetails.MovieDetailsContent
+import com.example.moviesapplication.moviedetails.MovieDetailsViewModel
 import com.example.moviesapplication.ui.theme.Navy
 import com.example.moviesapplication.ui.theme.Yellow
+import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
 
 
 @Composable
@@ -75,6 +78,9 @@ fun NavigationGraph(navController: NavHostController) {
                 nullable = false
             })
         ) {
+            getViewModel<MovieDetailsViewModel>(parameters = {
+                parametersOf(it.arguments?.getString("movieId")!!)
+            })
             MovieDetailsContent(it.arguments?.getString("movieId")!!)
         }
     }
