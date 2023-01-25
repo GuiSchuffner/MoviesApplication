@@ -13,9 +13,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
-import com.example.moviesapplication.home.MoviesGenresContent
+import com.example.moviesapplication.movies_feature.presentation.genres.MoviesGenresContent
 import com.example.moviesapplication.movies_feature.presentation.home.MoviesHomeContent
-import com.example.moviesapplication.moviedetails.MovieDetailsContent
+import com.example.moviesapplication.movies_feature.presentation.moviedetails.MovieDetailsContent
 import com.example.moviesapplication.movies_feature.presentation.moviedetails.MovieDetailsViewModel
 import com.example.moviesapplication.ui.theme.Navy
 import com.example.moviesapplication.ui.theme.Yellow

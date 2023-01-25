@@ -1,6 +1,7 @@
 package com.example.moviesapplication
 
 import android.app.Application
+import com.example.moviesapplication.movies_feature.di.module
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 

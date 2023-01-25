@@ -1,4 +1,4 @@
-package com.example.moviesapplication
+package com.example.moviesapplication.movies_feature.di
 
 import com.example.moviesapplication.movies_feature.data.data_source.MoviesApi
 import com.example.moviesapplication.movies_feature.presentation.home.MoviesHomeViewModel
