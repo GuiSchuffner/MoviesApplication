@@ -1,8 +1,8 @@
-package com.example.moviesapplication.data
+package com.example.moviesapplication.movies_feature.data.data_source
 
-import com.example.moviesapplication.model.MovieOverview
-import com.example.moviesapplication.model.Movies
-import com.example.moviesapplication.model.MoviesApiResponse
+import com.example.moviesapplication.movies_feature.domain.model.MovieOverview
+import com.example.moviesapplication.movies_feature.domain.model.Movies
+import com.example.moviesapplication.movies_feature.domain.model.MoviesApiResponse
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit

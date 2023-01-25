@@ -1,16 +1,16 @@
-package com.example.moviesapplication.home
+package com.example.moviesapplication.movies_feature.presentation.home
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviesapplication.model.Movies
+import com.example.moviesapplication.movies_feature.domain.model.Movies
+import com.example.moviesapplication.movies_feature.domain.use_cases.MoviesHomeUseCases
 import kotlinx.coroutines.launch
 
 class MoviesHomeViewModel(
-    private val moviesHomeRepository: MoviesHomeRepository
+    private val moviesHomeUseCases: MoviesHomeUseCases
 ): ViewModel() {
 
     var inputMovies by mutableStateOf("")
@@ -56,8 +56,7 @@ class MoviesHomeViewModel(
         loading = true
         viewModelScope.launch {
             try{
-                val response = moviesHomeRepository.searchTitle(inputMovies)
-                moviesList = response.body()!!.results
+                moviesList = moviesHomeUseCases.searchTitleUseCase(inputMovies)
                 numberOfPages = moviesList.size / 10
                 if(moviesList.size % 10 > 0 ) numberOfPages++
                 if(numberOfPages > 10)
@@ -88,11 +87,10 @@ class MoviesHomeViewModel(
             setMostPopularMoviesPage(page)
     }
 
-    fun getMovieId(movie: Movies): String {
+    fun getFilteredMovieId(movie: Movies): String {
         val regex = "(tt\\w+)".toRegex()
         val filteredMovieId = regex.find(movie.id)
-        val string = filteredMovieId?.groups?.get(0)?.value ?: ""
-        return string
+        return filteredMovieId?.groups?.get(0)?.value ?: ""
     }
 
     private fun setSearchMoviesPage(page: Int) {
@@ -120,7 +118,7 @@ class MoviesHomeViewModel(
         loading = true
         viewModelScope.launch {
             try{
-                topMoviesIds = moviesHomeRepository.getMostPopularMovies()
+                topMoviesIds = moviesHomeUseCases.getPopularMoviesIdsUseCase()
                 getMostPopularMoviesPage(1)
                 setListOfNumberOfPages()
             } catch (e: Exception) {
@@ -160,7 +158,7 @@ class MoviesHomeViewModel(
     }
 
     private suspend fun getMoviesDetails(id : String) {
-        val movie = moviesHomeRepository.getMovieDetails(id)
+        val movie = moviesHomeUseCases.getMovieUseCase(id)
         topMoviesList.add(movie)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.moviesapplication.model
+package com.example.moviesapplication.movies_feature.domain.model
 
 data class MovieRatings(
     val canRate: Boolean,

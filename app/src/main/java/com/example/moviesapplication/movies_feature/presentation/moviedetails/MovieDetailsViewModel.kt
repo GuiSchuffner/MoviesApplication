@@ -1,15 +1,16 @@
-package com.example.moviesapplication.moviedetails
+package com.example.moviesapplication.movies_feature.presentation.moviedetails
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviesapplication.model.MovieOverview
+import com.example.moviesapplication.movies_feature.domain.model.MovieOverview
+import com.example.moviesapplication.movies_feature.domain.use_cases.GetMovieOverviewUseCase
 import kotlinx.coroutines.launch
 
 class MovieDetailsViewModel(
-    movieDetailsRepository: MovieDetailsRepository,
+    getMovieOverviewUseCase: GetMovieOverviewUseCase,
     movieId: String
 ): ViewModel() {
     var movieOverview by mutableStateOf<MovieOverview?>(null)
@@ -21,7 +22,7 @@ class MovieDetailsViewModel(
         loading = true
         viewModelScope.launch {
             try{
-                movieOverview = movieDetailsRepository.getMovieOverview(movieId)
+                movieOverview = getMovieOverviewUseCase(movieId)
             } catch(_: Exception) {
                 //TO DO
             }

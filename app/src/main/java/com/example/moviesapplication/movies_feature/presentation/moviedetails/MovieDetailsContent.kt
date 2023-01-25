@@ -1,6 +1,5 @@
 package com.example.moviesapplication.moviedetails
 
-import android.provider.MediaStore.Audio.Genres
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -17,7 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.moviesapplication.R
-import com.example.moviesapplication.model.*
+import com.example.moviesapplication.movies_feature.domain.model.*
+import com.example.moviesapplication.movies_feature.presentation.moviedetails.MovieDetailsViewModel
 import com.example.moviesapplication.ui.theme.Yellow
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf

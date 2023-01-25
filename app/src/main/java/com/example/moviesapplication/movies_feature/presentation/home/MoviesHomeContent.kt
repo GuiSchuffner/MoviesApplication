@@ -1,4 +1,4 @@
-package com.example.moviesapplication.home
+package com.example.moviesapplication.movies_feature.presentation.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -15,7 +15,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -24,10 +23,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.moviesapplication.model.Movies
+import com.example.moviesapplication.movies_feature.domain.model.Movies
 import org.koin.androidx.compose.koinViewModel
 import com.example.moviesapplication.R
-import com.example.moviesapplication.model.MovieImage
+import com.example.moviesapplication.movies_feature.domain.model.MovieImage
 import com.example.moviesapplication.ui.theme.Navy
 import com.example.moviesapplication.ui.theme.Yellow
 
@@ -51,7 +50,7 @@ fun MoviesHomeContent(
         MoviesList(
             moviesList = moviesViewModel.moviesPage,
             onItemClicked = { navigateToMovieDetails(it) },
-            getMovieId = { moviesViewModel.getMovieId(it) }
+            getMovieId = { moviesViewModel.getFilteredMovieId(it) }
         )
     }
 }
