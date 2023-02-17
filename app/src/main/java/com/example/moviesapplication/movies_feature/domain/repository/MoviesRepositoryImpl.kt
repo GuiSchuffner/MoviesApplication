@@ -11,9 +11,9 @@ import retrofit2.Response
 
 class MoviesRepositoryImpl(private val moviesApi: MoviesApi): MoviesRepository {
 
-    override suspend fun searchTitle(title: String): Response<MoviesApiResponse> {
+    override suspend fun searchTitle(title: String): MoviesApiResponse? {
         return withContext(Dispatchers.IO) {
-            return@withContext moviesApi.findTitle(title)
+            return@withContext moviesApi.findTitle(title).body()
         }
     }
 

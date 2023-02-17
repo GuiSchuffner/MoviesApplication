@@ -7,7 +7,7 @@ import retrofit2.Response
 
 interface MoviesRepository {
 
-    suspend fun searchTitle(title: String) : Response<MoviesApiResponse>
+    suspend fun searchTitle(title: String) : MoviesApiResponse?
 
     suspend fun getMostPopularMoviesId() : List<String>
 

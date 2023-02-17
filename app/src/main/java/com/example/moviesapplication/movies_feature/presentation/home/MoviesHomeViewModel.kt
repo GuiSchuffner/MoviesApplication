@@ -56,7 +56,8 @@ class MoviesHomeViewModel(
         loading = true
         viewModelScope.launch {
             try{
-                moviesList = moviesHomeUseCases.searchTitleUseCase(inputMovies)
+                //TODO: hande empty moviesResponse
+                moviesList = moviesHomeUseCases.searchTitleUseCase(inputMovies)!!.results
                 numberOfPages = moviesList.size / 10
                 if(moviesList.size % 10 > 0 ) numberOfPages++
                 if(numberOfPages > 10)
@@ -64,7 +65,7 @@ class MoviesHomeViewModel(
                 setListOfNumberOfPages()
                 setSearchMoviesPage(1)
             } catch (e : Exception) {
-                // TO DO
+                // TODO: handle exceptions
             }
             moviesListLabel = "Search: $inputMovies"
             loading = false
