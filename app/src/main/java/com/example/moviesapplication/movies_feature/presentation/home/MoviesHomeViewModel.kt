@@ -24,7 +24,7 @@ class MoviesHomeViewModel(
     private val pageSize=10
     private var numberOfPages = 10
 
-    private var currentMaxIndex = 0;
+    private var currentMaxIndex = 0
 
     var loading by mutableStateOf(false)
         private set
@@ -101,6 +101,9 @@ class MoviesHomeViewModel(
             moviesPage = ArrayList(moviesList.subList(startIndex, endIndex+1))
             currentPage = page
         }
+        else {
+            // TODO: handle exception
+        }
     }
 
     private fun setMostPopularMoviesPage(page: Int) {
@@ -109,7 +112,7 @@ class MoviesHomeViewModel(
             try{
                 getMostPopularMoviesPage(page)
             } catch(e: Exception) {
-                //to do
+                //todo
             }
             loading = false
         }
@@ -130,36 +133,23 @@ class MoviesHomeViewModel(
     }
 
     private suspend fun getMostPopularMoviesPage(page: Int) {
-        if(page in 1..pageSize) {
+        if(page in 1..numberOfPages) {
             var startIndex = (page-1)*pageSize
             val endIndex = page*pageSize-1
             if(endIndex>currentMaxIndex) {
                 if(startIndex>currentMaxIndex) {
                     startIndex = currentMaxIndex+1
                 }
-
-                val regex = "(tt\\w+)".toRegex()
-
-                for(i: Int in startIndex..endIndex) {
-                    try{
-                        val match = regex.find(topMoviesIds[i])
-                        if(match !=null) {
-                            getMoviesDetails(match.value)
-                        }
-                    } catch (e: Exception) {
-
-                    }
-                }
+                val moviesIdsList = ArrayList(topMoviesIds.subList(startIndex, endIndex+1))
+                topMoviesList.addAll(moviesHomeUseCases.getMoviesUseCase(moviesIdsList))
                 currentMaxIndex=endIndex
                 startIndex = (page-1)*pageSize
             }
             moviesPage = ArrayList(topMoviesList.subList(startIndex, endIndex+1))
             currentPage = page
         }
-    }
-
-    private suspend fun getMoviesDetails(id : String) {
-        val movie = moviesHomeUseCases.getMovieUseCase(id)
-        topMoviesList.add(movie)
+        else {
+            //TODO: throw or handle exception
+        }
     }
 }

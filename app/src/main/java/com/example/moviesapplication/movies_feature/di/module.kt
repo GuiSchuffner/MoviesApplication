@@ -26,7 +26,7 @@ val module = module {
         MoviesHomeUseCases(
             GetPopularMoviesIdsUseCase(get()),
             SearchTitleUseCase(get()),
-            GetMovieUseCase(get())
+            GetMoviesUseCase(get())
         )
     }
     single{
