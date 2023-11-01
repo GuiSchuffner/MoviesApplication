@@ -3,9 +3,9 @@ package com.example.moviesapplication
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -17,35 +17,35 @@ import com.example.moviesapplication.movies_feature.presentation.genres.MoviesGe
 import com.example.moviesapplication.movies_feature.presentation.home.MoviesHomeContent
 import com.example.moviesapplication.movies_feature.presentation.moviedetails.MovieDetailsContent
 import com.example.moviesapplication.movies_feature.presentation.moviedetails.MovieDetailsViewModel
-import com.example.moviesapplication.ui.theme.Navy
-import com.example.moviesapplication.ui.theme.Yellow
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 
 
 @Composable
 fun BottomNav(navController: NavHostController) {
-
     val navigationItems = listOf(
         BottomNavItem.Home,
         BottomNavItem.MoviesGenre
     )
 
-    BottomNavigation(backgroundColor = Navy, contentColor = Color.White) {
+    BottomNavigation(
+        backgroundColor = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+    ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
         navigationItems.forEach { item ->
             BottomNavigationItem(
                 icon = { Icon(painterResource(id = item.icon), contentDescription = null) },
-                selectedContentColor = Yellow,
-                unselectedContentColor = Yellow.copy(0.4f),
+                selectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                unselectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(0.4f),
                 alwaysShowLabel = true,
                 selected = currentRoute == item.route,
                 onClick = {
                     navController.navigate(item.route) {
 
-                        navController.graph.startDestinationRoute?.let { screen_route ->
-                            popUpTo(screen_route) {
+                        navController.graph.startDestinationRoute?.let { screenRoute ->
+                            popUpTo(screenRoute) {
                                 saveState = true
                             }
                         }

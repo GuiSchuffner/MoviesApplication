@@ -45,7 +45,7 @@ class MoviesHomeViewModel(
         private set
 
     init {
-        getMostPopularMovies()
+        //getMostPopularMovies()
     }
 
     fun onInputMoviesChanged(movie: String) {

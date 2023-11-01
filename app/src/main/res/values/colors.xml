@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="navy">#FF073042</color>
     <color name="dark_blue">#29434e</color>
+    <color name="transparent">#00000000</color>
+    <color name="md_theme_dark_primaryContainer">#FF005143</color>
 </resources>

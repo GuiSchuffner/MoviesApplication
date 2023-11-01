@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.moviesapplication.R
 import com.example.moviesapplication.movies_feature.domain.model.*
-import com.example.moviesapplication.ui.theme.Yellow
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -56,9 +55,9 @@ fun MovieOverviewContent(movieOverview: MovieOverview) {
             movieOverview.genres,
             movieOverview.releaseDate
         )
-        Divider(Modifier.fillMaxWidth(), 1.dp, Yellow)
+        Divider(Modifier.fillMaxWidth(), 1.dp, MaterialTheme.colorScheme.onBackground)
         PlotOutlineCard(plotText = movieOverview.plotOutline.text)
-        Divider(Modifier.fillMaxWidth(), 1.dp, Yellow)
+        Divider(Modifier.fillMaxWidth(), 1.dp, MaterialTheme.colorScheme.onBackground)
         PlotSummaryCard(
             plotSummary = movieOverview.plotSummary.text,
             author = stringResource( R.string.summary_author, movieOverview.plotSummary.author ),
@@ -70,7 +69,7 @@ fun MovieOverviewContent(movieOverview: MovieOverview) {
 @Composable
 fun MovieDetailsCard(
     movie: Movies, rating: MovieRatings?, genres: List<String>, releaseDate: String
-){
+) {
     var showMovieDetails by remember { mutableStateOf(false) }
     Card(
         onClick = { showMovieDetails = !showMovieDetails },
@@ -78,7 +77,7 @@ fun MovieDetailsCard(
         shape = RectangleShape,
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent,
-            contentColor = Yellow
+            contentColor = MaterialTheme.colorScheme.onBackground
         )
     ) {
         Column(modifier = Modifier.padding(all = 8.dp)) {
@@ -157,7 +156,7 @@ fun PlotOutlineCard(plotText: String) {
         shape = RectangleShape,
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent,
-            contentColor = Yellow
+            contentColor = MaterialTheme.colorScheme.onBackground
         )
     ) {
         Column(modifier = Modifier.padding(all = 8.dp)) {
@@ -192,7 +191,7 @@ fun PlotSummaryCard(plotSummary: String, author: String) {
         shape = RectangleShape,
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent,
-            contentColor = Yellow
+            contentColor = MaterialTheme.colorScheme.onBackground
         )
     ) {
         Column(modifier = Modifier.padding(all = 8.dp)) {
@@ -232,7 +231,7 @@ fun CardTitle(cardTitle: String, showDetails: Boolean) {
             painter = painterResource(id = imageId),
             contentDescription = "",
             alignment = Alignment.TopEnd,
-            colorFilter = ColorFilter.tint(Yellow)
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
         )
     }
 }

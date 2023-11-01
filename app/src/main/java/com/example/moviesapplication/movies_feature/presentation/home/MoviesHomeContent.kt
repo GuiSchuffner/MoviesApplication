@@ -27,8 +27,6 @@ import com.example.moviesapplication.movies_feature.domain.model.Movies
 import org.koin.androidx.compose.koinViewModel
 import com.example.moviesapplication.R
 import com.example.moviesapplication.movies_feature.domain.model.MovieImage
-import com.example.moviesapplication.ui.theme.Navy
-import com.example.moviesapplication.ui.theme.Yellow
 
 @Composable
 fun MoviesHomeContent(
@@ -94,7 +92,7 @@ fun CurrentListLabelText(text: String) {
         Text(
             text = text,
             style = MaterialTheme.typography.titleMedium,
-            color = Yellow,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center
         )
     }
@@ -120,7 +118,9 @@ fun PageSelector(
             TextButton(onClick = { onPageSelected(page) }) {
                 Text(
                     text = page.toString(),
-                    color = if (page == currentPage) Yellow else Yellow.copy(0.5f),
+                    color =
+                        if (page == currentPage) MaterialTheme.colorScheme.onBackground
+                        else MaterialTheme.colorScheme.onBackground.copy(0.5f),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -165,32 +165,26 @@ fun MovieCard(movie: Movies, onClick: (String)-> Unit){
             elevation = CardDefaults.cardElevation(defaultElevation = 16.dp),
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Navy,
-                contentColor = Yellow
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
             )
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.Center,
             ) {
                 if(movie.image!=null){
                     AsyncImage(
                         model = movie.image.url,
                         contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp),
+                        modifier = Modifier.fillMaxWidth().height(200.dp),
                         contentScale = ContentScale.FillBounds
                     )
                 }
                 else {
                     Image(
                         painter = painterResource(id = R.drawable.ic_launcher_background),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxWidth()
-                            .height(200.dp),
+                        modifier = Modifier.fillMaxWidth().fillMaxWidth().height(200.dp),
                         contentDescription = null,
                         contentScale = ContentScale.FillBounds
                     )
