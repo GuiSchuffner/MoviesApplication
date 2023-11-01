@@ -6,14 +6,14 @@ import androidx.compose.runtime.Composable
 
 
 private val colorScheme = lightColorScheme(
-surface = androidx.compose.ui.graphics.Color.Black,
-onSurface = Yellow,
-primary = Navy,
-onPrimary = Yellow
+    surface = androidx.compose.ui.graphics.Color.Black,
+    onSurface = Yellow,
+    primary = Navy,
+    onPrimary = Yellow
 )
 
 @Composable
-fun MoviesApplicationTheme(content: @Composable () -> Unit){
+fun MoviesApplicationTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = colorScheme,
         typography = MoviesApplicationTypography,
